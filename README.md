@@ -22,5 +22,4 @@ This repository showcases my public work and sample projects.
 ### 5. API Documentation: 
 
 ## 📬 Contact
-- **Mobile**: 7903928737 
 - **Email**: pchandhanarchitha@gmail.com 
