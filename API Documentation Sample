@@ -1,0 +1,72 @@
+# Casino Games API
+
+The **Casino Games API** provides access to a list of games offered by the casino platform.  
+It allows developers to fetch game details such as name, provider, category, features (jackpot, free spins, multipliers),  
+and configuration settings like RTP, volatility, and availability status.  
+
+---
+
+## Example Endpoint
+
+```http
+GET /api/v1/games
+
+SAMPLE RESPONSE
+
+
+
+[
+  {
+    "gameId": "slot123",
+    "name": "Mega Fortune Deluxe",
+    "provider": "NetEnt",
+    "category": "slots",
+    "features": {
+      "jackpot": true,
+      "freeSpins": true,
+      "multiplier": false
+    },
+    "launchUrl": "https://casino-api.example.com/games/slot123/play",
+    "thumbnail": "https://cdn.casino.com/images/games/slot123.png",
+    "status": "active",
+    "rtp": 96.5,
+    "volatility": "high",
+    "demoAvailable": true
+  },
+  {
+    "gameId": "bj101",
+    "name": "Blackjack Classic",
+    "provider": "Playtech",
+    "category": "blackjack",
+    "features": {
+      "jackpot": false,
+      "freeSpins": false,
+      "multiplier": false
+    },
+    "launchUrl": "https://casino-api.example.com/games/bj101/play",
+    "thumbnail": "https://cdn.casino.com/images/games/bj101.png",
+    "status": "active",
+    "rtp": 99.5,
+    "volatility": "low",
+    "demoAvailable": false
+  }
+]
+
+
+## 📖 Attribute Reference
+
+| Attribute            | Type          | Mandatory | Description                                    | If TRUE / Value Present                | If FALSE / Missing                      |
+|-----------------------|---------------|-----------|------------------------------------------------|----------------------------------------|-----------------------------------------|
+| `gameId`             | String        | ✅ Yes    | Unique identifier of the game.                 | Required, identifies the game.         | Cannot be missing.                      |
+| `name`               | String        | ✅ Yes    | Display name of the game.                      | Game shows with this name.             | Game may not display properly.          |
+| `provider`           | String        | ✅ Yes    | Vendor or studio providing the game.           | Used for filtering by provider.        | Defaults to "Unknown".                  |
+| `category`           | String        | ✅ Yes    | Type of game (slots, roulette, blackjack).     | Helps in filtering/search.             | Game may not appear in filtered lists.  |
+| `features.jackpot`   | Boolean       | ❌ No     | Progressive jackpot availability.              | Jackpot banner/prize pool shown.       | No jackpot displayed.                   |
+| `features.freeSpins` | Boolean       | ❌ No     | Free spin bonus availability.                  | Free spins available in gameplay.      | No free spins possible.                 |
+| `features.multiplier`| Boolean       | ❌ No     | Multiplier mechanic availability.              | Multipliers applied in gameplay.       | No multipliers offered.                 |
+| `launchUrl`          | String (URL)  | ✅ Yes    | Secure link to launch the game.                | Game can be launched.                  | Game cannot be started.                 |
+| `thumbnail`          | String (URL)  | ❌ No     | Game image thumbnail.                          | Shown in casino lobby.                 | Default/blank image shown.              |
+| `status`             | String (enum) | ✅ Yes    | Game status (`active`, `inactive`, `maintenance`). | `active` → playable.                   | Hidden/disabled if not active.          |
+| `rtp`                | Number (float)| ❌ No     | Return to Player % (e.g., 96.5).               | RTP displayed in info/help.            | Hidden or default RTP applies.          |
+| `volatility`         | String (enum) | ❌ No     | Payout variance (`low`, `medium`, `high`).     | Shown in game details.                 | Not displayed.                          |
+| `demoAvailable`      | Boolean       | ❌ No     | Whether demo/free play is available.           | Players can try for free.              | Only real money mode.                   |
